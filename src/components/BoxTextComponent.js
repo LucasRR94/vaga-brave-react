@@ -2,18 +2,24 @@ import React, {Component} from 'react';
 import './BoxTextComponent.css';
 
 class BoxTextComponent extends Component {
-    state = {
-        contentBox:''
-    }
+    // state = {
+    //     contentBox:''
+    // }
+    // changeContent = (e) => {
+    //     this.setState ({
+    //         contentBox : e.target.value 
+    //     });
+    // }
+    // scuna = () => {
+    //     console.log(this.props.lol);
+    // }
     changeContent = (e) => {
-        this.setState ({
-            contentBox : e.target.value 
-        });
+        return this.props.content.bind(this,e.target.value);
     }
     render() {
         return (
             <div className='wrapper-box-text-content'>
-                <textarea type="text" value={this.state.contentBox} onChange={this.changeContent} />
+                <textarea type="text" value={this.props.content} onChange={this.changeContent}/>
             </div>
         );
     }

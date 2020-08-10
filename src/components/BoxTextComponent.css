@@ -8,10 +8,10 @@
 }
 
 .wrapper-box-text-content{
-    width:200px;
-    height:100px;
-    position: absolute;
-    background: white;
+    width:100%;
+    height:100%;
+    position: static;
+    background: rgb(99, 93, 93);
     display: flex;
     flex-direction: row;
     border:2px solid black;
