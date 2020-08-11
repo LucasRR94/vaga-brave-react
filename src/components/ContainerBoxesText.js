@@ -14,14 +14,29 @@ export default class ContainerBoxesText extends Component {
             ]
         };
     }
+    changeContent = (index,e) => {
+        try{
+            const value = e.target['value'];
+            const copyBoxes = this.state.boxes;
+            copyBoxes[index].content = value;
+            this.setState({boxes:copyBoxes});
+        }
+        catch(err){
+            console.log('error, at index ...');
+        }   
+        
+    }
     renderizeList = () => {
         const finalBoxes = this.state.boxes.map( (el,index) => {
             const copyState =  {};
             Object.assign(copyState,this.state.boxes[index].style);
-            this.state.content.push('');
             return <div className='wrapper-box-text' key={index} id={`Box:${index}`} style={copyState}> 
-                <BoxTextComponent content={this.state.content[index]}/>
-                   </div> ;
+                <BoxTextComponent 
+                index={index}
+                content={this.state.boxes[index].content} 
+                callContentchange={this.changeContent}
+                />
+                </div> ;
         });
         return finalBoxes;
     }
@@ -50,7 +65,7 @@ export default class ContainerBoxesText extends Component {
                 stateWindow.oldHeight = e.target.innerHeight;
                 stateWindow.oldWidth = e.target.innerWidth;
                 this.setState({boxes:copyBoxes});
-                console.log(copyBoxes);
+                
             }   
         });
         containerBox.addEventListener('mousedown', (e) => {
@@ -112,7 +127,7 @@ export default class ContainerBoxesText extends Component {
                 textBoxCopy['y'] = finalMeasures.y;
                 textBoxCopy['top'] = finalMeasures.top;
                 textBoxCopy['left'] = finalMeasures.left;
-                let style = {style:{}};
+                let style = {style:{},content:''};
                 Object.assign(style.style,textBoxCopy);
                 let boxCopy = this.state.boxes;
                 boxCopy.push(style);
