@@ -1,6 +1,6 @@
 import React , {Component} from 'react';
 import './App.css';
-import HomePage from './components/HomePage.js';
+import HomePage from './components/HomePage/HomePage.js';
 import { Provider } from 'react-redux';
 import store from './store';
 

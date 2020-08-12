@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './HomePage.css';
-import OptionBoxComponent from './OptionBoxComponent';
-import ContainerBoxesText from './ContainerBoxesText';
+import OptionBoxComponent from '../OptionBoxComponent/OptionBoxComponent';
+import ContainerBoxesText from '../ContainerBoxesText/ContainerBoxesText';
 
 
 export default class HomePage extends Component {

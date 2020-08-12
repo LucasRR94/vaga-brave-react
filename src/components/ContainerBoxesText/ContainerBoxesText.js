@@ -1,7 +1,7 @@
 import React, {Component } from 'react'
 import './ContainerBoxesText.css'
-import BoxTextComponent from './BoxTextComponent.js';
-import { addBoxContent,modBoxContent } from '../actions/index';
+import BoxTextComponent from '../BoxTextComponent/BoxTextComponent.js';
+import { addBoxContent,modBoxContent } from '../../actions/index';
 import { connect } from 'react-redux';
 
 class ContainerBoxesText extends Component {
@@ -10,9 +10,6 @@ class ContainerBoxesText extends Component {
         this.state = {
             boxes:[
                 
-            ],
-            content:[
-
             ]
         };
     }
@@ -52,24 +49,8 @@ class ContainerBoxesText extends Component {
         //Initializing ... 
         stateWindow.oldHeight = window.innerHeight;
         stateWindow.oldwidth = window.innerWidth;
-
         const containerBox = document.getElementById('containerBox');
-        window.addEventListener('resize',(e) => {
-            let adjustementHeight = e.target.innerHeight-stateWindow.oldHeight;
-            let adjustementWidth = e.target.innerWidth-stateWindow.oldWidth;
-            if(adjustementHeight!==0 || adjustementWidth!==0){    
-                let copyBoxes = this.state.boxes.slice();
-                copyBoxes = copyBoxes.map( (el) => {
-                    el.style.top += adjustementHeight;
-                    el.style.left += adjustementWidth;
-                    return el;
-                });
-                stateWindow.oldHeight = e.target.innerHeight;
-                stateWindow.oldWidth = e.target.innerWidth;
-                this.setState({boxes:copyBoxes});
-                
-            }   
-        });
+
         containerBox.addEventListener('mousedown', (e) => {
             this.setState({startX:e.clientX});
             this.setState({startY:e.clientY});
