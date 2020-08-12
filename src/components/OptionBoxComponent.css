@@ -21,3 +21,48 @@
 
 
 
+.wrapper-option-box-control{
+  display: flex;
+  flex-direction: column;
+  width:100%;
+  height:auto;
+}
+
+.wrapper-option-box-control-entries{
+  display: flex;
+  flex-direction: row;
+  width:100%;
+  height: auto;
+  align-items: center;
+  margin:.4rem 0;
+  background: white;
+}
+
+.wrapper-option-box-control-entries-content{
+  height:100%;
+  width:88%;
+  height:auto;
+  overflow-y:auto;
+}
+.wrapper-option-box-control-entries-content span{
+  font-weight: 100;
+  max-width:99%;
+  width:auto;
+  height:auto;
+}
+.wrapper-option-box-control-entries-btn-del{
+  width:12%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper-option-box-control-entries-btn-del button{
+  border:2px solid black;
+  outline:none;
+  background: none;
+  height:20px;
+  width:40px;
+  border-radius: .4rem;
+  font-weight: 100;
+}

@@ -1,8 +1,10 @@
-import React, { Component } from 'react'
+import React, {Component } from 'react'
 import './ContainerBoxesText.css'
 import BoxTextComponent from './BoxTextComponent.js';
+import { addBoxContent,modBoxContent } from '../actions/index';
+import { connect } from 'react-redux';
 
-export default class ContainerBoxesText extends Component {
+class ContainerBoxesText extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -15,31 +17,31 @@ export default class ContainerBoxesText extends Component {
         };
     }
     changeContent = (index,e) => {
-        try{
-            const value = e.target['value'];
-            const copyBoxes = this.state.boxes;
-            copyBoxes[index].content = value;
-            this.setState({boxes:copyBoxes});
-        }
-        catch(err){
-            console.log('error, at index ...');
-        }   
-        
+        const value = e.target['value'];
+        const arr = [index,value];
+        this.props.modBoxContent(arr);
     }
     renderizeList = () => {
-        const finalBoxes = this.state.boxes.map( (el,index) => {
+            const copyObj = this.props.boxes.boxes;
+            const finalBoxes = this.props.boxes.boxes.map( (el,index) => {
             const copyState =  {};
-            Object.assign(copyState,this.state.boxes[index].style);
-            return <div className='wrapper-box-text' key={index} id={`Box:${index}`} style={copyState}> 
+            Object.assign(copyState,this.props.boxes.boxes[index].style);
+            return <div className='wrapper-box-text' 
+                key={index} 
+                id={`Box:${index}`} 
+                style={copyState}> 
+                
                 <BoxTextComponent 
                 index={index}
-                content={this.state.boxes[index].content} 
+                content={copyObj[index].content} 
                 callContentchange={this.changeContent}
                 />
+                
                 </div> ;
         });
-        return finalBoxes;
+        return finalBoxes; // boxes are being add to the dom 
     }
+     
     componentDidMount  = (e) => {
         let drag = false;
         let moved = false;
@@ -118,8 +120,13 @@ export default class ContainerBoxesText extends Component {
             e.preventDefault();
             drag = false; 
             const boxTestContainer = document.getElementById('boxTest');
+            if(boxTestContainer ===null){
+                moved = false;
+                return ;
+            }
             const finalMeasures = boxTestContainer.getBoundingClientRect();
             if(moved){
+                // creation of an new Box of text ...
                 let textBoxCopy = {};
                 textBoxCopy['width'] = finalMeasures.width+'px';
                 textBoxCopy['height'] = finalMeasures.height+'px';
@@ -127,11 +134,9 @@ export default class ContainerBoxesText extends Component {
                 textBoxCopy['y'] = finalMeasures.y;
                 textBoxCopy['top'] = finalMeasures.top;
                 textBoxCopy['left'] = finalMeasures.left;
-                let style = {style:{},content:''};
-                Object.assign(style.style,textBoxCopy);
-                let boxCopy = this.state.boxes;
-                boxCopy.push(style);
-                this.setState({boxes:boxCopy});
+                let box = {style:{},content:''};
+                Object.assign(box.style,textBoxCopy);
+                this.props.addBoxContent(box);  // added box to array
                 moved = false;
             }
             // delete element of id = boxTest ...
@@ -148,3 +153,9 @@ export default class ContainerBoxesText extends Component {
         )
     }
 }
+
+const mapStateToProps = state =>({
+    boxes:state
+});
+
+export default connect (mapStateToProps,{addBoxContent,modBoxContent})(ContainerBoxesText) ;
