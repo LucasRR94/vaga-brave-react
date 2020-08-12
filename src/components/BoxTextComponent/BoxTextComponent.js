@@ -2,9 +2,7 @@ import React, {Component} from 'react';
 import './BoxTextComponent.css';
 
 class BoxTextComponent extends Component {
-    state ={
-        copyContent:''
-    }
+    
     render() {
         return (
             <div className='wrapper-box-text-content'>
